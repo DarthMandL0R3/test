@@ -1,7 +1,18 @@
 ---
 - name: Install Prometheus
-  hosts: 
+  hosts: monitoring-server
   become: true
   roles:
     - prometheus.prometheus.prometheus
 
+---
+- name: Install Grafana
+  hosts: monitoring-server
+  become: true
+  roles:
+    - grafana.grafana.grafana
+  vars:
+    grafana_ini:
+      security:
+        admin_user: "admin"
+        admin_password: "admin"
