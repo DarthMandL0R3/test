@@ -1,0 +1,28 @@
+---
+- name: Install Ansible
+  hosts: ansible-controller
+  become: true
+  roles:
+    - geerlingguy.ansible
+
+- name: Install needed Ansible Roles and Collections on Ansible Controller node
+  hosts: ansible-controller
+  become: true
+  tasks:
+    - name: Install the geerlingguy.docker role
+      community.general.ansible_galaxy_install:
+        type: role
+        name: geerlingguy.docker
+        state: present
+
+    - name: Install the prometheus collection
+      community.general.ansible_galaxy_install:
+        type: collection
+        name: prometheus.prometheus
+        state: present
+
+    - name: Install the grafana collection
+      community.general.ansible_galaxy_install:
+        type: collection
+        name: grafana.grafana
+        state: present

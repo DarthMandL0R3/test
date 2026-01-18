@@ -7,7 +7,12 @@ module "security_group" {
   name        = each.value.name
   description = each.value.description
   vpc_id      = aws_vpc.main.id
-  ingress_rules       = each.value.ingress_rules
-  ingress_cidr_blocks = each.value.ingress_cidr_blocks
-  egress_rules        = ["all-all"]
+
+  ingress_with_cidr_blocks = each.value.ingress_with_cidr_blocks
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
